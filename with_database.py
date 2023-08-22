@@ -3,7 +3,7 @@ import psycopg2
 # Подключаемся к базе данных (Введите свой хост, название БД, логин и пароль)
 with psycopg2.connect(
         host="localhost",
-        database="Course_Work_5",
+        database="CourseWork5",
         user="postgres",
         password="123456"
 ) as conn:
@@ -14,7 +14,7 @@ with psycopg2.connect(
 
         rows = cur.fetchall()
         for row in rows:
-            print(row[0], row[2])
+            print(row)
 
 # Закрываем курсор и подключение
 conn.close()
