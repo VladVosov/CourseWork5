@@ -18,14 +18,14 @@ with psycopg2.connect(
                     "company_name varchar NOT NULL, "
                     "company_api int NOT NULL)")
 
-        # Выполняем запрос на создание таблицы vacansies
-        cur.execute("CREATE TABLE vacansies "
+        # Выполняем запрос на создание таблицы vacancies
+        cur.execute("CREATE TABLE vacancies "
                     "(company_id serial, "
-                    "vacansy_name VARCHAR NOT NULL, "
-                    "vacansy_url VARCHAR NOT NULL, "
+                    "vacancy_name VARCHAR NOT NULL, "
+                    "vacancy_url VARCHAR NOT NULL, "
                     "salary_from integer, "
                     "requirement text, "
-                    "vacansy_id serial PRIMARY KEY)")
+                    "vacancy_id serial PRIMARY KEY)")
 
         # Добавляем значения из файла data.json в таблицу companies
         with open('data.json', 'r') as f:
