@@ -31,19 +31,48 @@ class DBManager:
     def get_companies_and_vacancies_count(self):
         """получает список всех компаний и количество вакансий у каждой компании"""
 
+        request = """SELECT company_name, COUNT(vacancy_name) 
+        FROM companies JOIN vacancies USING(company_id) 
+        GROUP BY company_name 
+        ORDER BY COUNT(vacancy_name) DESC"""
+
+        result = DBManager.connect(self, request)
+        return result
+
     def get_all_vacancies(self):
         """получает список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на
         вакансию"""
 
+        request = """SELECT company_name, vacancy_name, salary_from, vacancy_url 
+        FROM companies 
+        JOIN vacancies USING(company_id)"""
+
+        result = DBManager.connect(self, request)
+        return result
+
     def get_avg_salary(self):
         """получает среднюю зарплату по вакансиям"""
+
+        request = """SELECT AVG(salary_from) FROM vacancies"""
+
+        result = DBManager.connect(self, request)
+        return result
 
     def get_vacancies_with_higher_salary(self):
         """получает список всех вакансий, у которых зарплата выше средней по всем вакансиям"""
 
-    def get_vacancies_with_keyword(self):
+        request = """SELECT * FROM vacancies
+        WHERE salary_from >= (SELECT AVG(salary_from) FROM vacancies)"""
+
+        result = DBManager.connect(self, request)
+        return result
+
+    def get_vacancies_with_keyword(self, word):
         """получает список всех вакансий, в названии которых содержатся переданные в метод слова, например python"""
 
+        request = (f"SELECT * FROM vacancies WHERE vacancy_name LIKE '%{word}%'")
 
-test = DBManager("localhost", "CourseWork5", "postgres", "123456")
-print(test.connect('SELECT * FROM companies'))
+        result = DBManager.connect(self, request)
+        return result
+
+

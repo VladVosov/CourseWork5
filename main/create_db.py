@@ -1,6 +1,6 @@
 import psycopg2
 import json
-import main
+import main.hh
 
 # Подключаемся к базе данных (Введите свой хост, название БД, логин и пароль)
 with psycopg2.connect(
@@ -42,7 +42,7 @@ with psycopg2.connect(
             vacansies = main.hh.get_data("", i[2], i[0])
 
             for vac in vacansies:
-                cur.execute("INSERT INTO vacansies VALUES (%s, %s, %s, %s, %s)",
+                cur.execute("INSERT INTO vacancies VALUES (%s, %s, %s, %s, %s)",
                             (vac[0], vac[1], vac[2], vac[3], vac[4]))
 
 # Закрываем курсор и подключение
